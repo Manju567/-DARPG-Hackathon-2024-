@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="dashboard-header">
+            <h1>Welcome to Dashboard</h1>
+        </div>
+        
+        <div class="dashboard-content">
+            <h2>Submit a Report</h2>
+            <form action="{{ url_for('dashboard') }}" method="POST">
+                <textarea name="report" placeholder="Enter your report here..." required></textarea>
+                <button type="submit">Submit Report</button>
+            </form>
+            
+            <h2>My Reports</h2>
+            <ul>
+                {% for report in user_reports %}
+                <li class="report-card">
+                    <p class="report-text">{{ report.report_text }}</p>
+                    <p class="report-category">Category: {{ report.category }}</p>
+                    <p class="report-status">Status: {{ report.status }}</p>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        
+        <a href="{{ url_for('logout') }}" class="logout-btn">Logout</a>
+    </div>
+</body>
+</html>
